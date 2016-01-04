@@ -17,13 +17,14 @@ namespace Blinky
         private DispatcherTimer timer;
         private SolidColorBrush redBrush = new SolidColorBrush(Windows.UI.Colors.Red);
         private SolidColorBrush grayBrush = new SolidColorBrush(Windows.UI.Colors.LightGray);
+        private SolidColorBrush goldBrush = new SolidColorBrush(Windows.UI.Colors.Gold);
 
         public MainPage()
         {
             InitializeComponent();
 
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += Timer_Tick;
             InitGPIO();
             if (pin != null)
@@ -50,13 +51,7 @@ namespace Blinky
             pin.SetDriveMode(GpioPinDriveMode.Output);
 
             GpioStatus.Text = "GPIO pin initialized correctly.";
-
         }
-
-   
-
-
-
 
         private void Timer_Tick(object sender, object e)
         {
@@ -65,15 +60,15 @@ namespace Blinky
                 pinValue = GpioPinValue.Low;
                 pin.Write(pinValue);
                 LED.Fill = redBrush;
+                RectLED.Fill = goldBrush;
             }
             else
             {
                 pinValue = GpioPinValue.High;
                 pin.Write(pinValue);
                 LED.Fill = grayBrush;
+                RectLED.Fill = redBrush;
             }
         }
-             
-
     }
 }
